@@ -10,6 +10,15 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Database database;
     [SerializeField] private GameObject cell;
     [SerializeField] private GameObject parent;
+    private string selectedCrop;
+    private GameObject selectedBorder;
+
+    public static Inventory _INVENTORY;
+
+    private void Awake()
+    {
+        if (_INVENTORY == null) _INVENTORY = this;
+    }
     private void Start()
     {
         RawToInventory();
@@ -64,5 +73,15 @@ public class Inventory : MonoBehaviour
             toInstance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = item.Key;
             toInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "x" + item.Value.ToString();
         } 
+    }
+
+    private void ClickedOutside()
+    {
+        if (selectedCrop != null)
+        {
+            selectedCrop = null;
+            selectedBorder.SetActive(false);
+            selectedBorder = null;
+        }
     }
 }

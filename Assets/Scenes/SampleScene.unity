@@ -1778,6 +1778,11 @@ MonoBehaviour:
   cropLayer:
     serializedVersion: 2
     m_Bits: 1024
+  buttonLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  m_Raycaster: {fileID: 1744532783}
+  m_EventSystem: {fileID: 496714603}
 --- !u!4 &177425917 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2bc1b7400bb9377469b608fa9e0da0bb, type: 3}
@@ -18570,7 +18575,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 7.6064453, y: -11.961792}
+  m_AnchoredPosition: {x: 7.6064453, y: 0}
   m_SizeDelta: {x: 332.10492, y: 264.4477}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1729849031
