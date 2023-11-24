@@ -10,8 +10,10 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Database database;
     [SerializeField] private GameObject cell;
     [SerializeField] private GameObject parent;
-    private string selectedCrop;
-    private GameObject selectedBorder;
+    public Plant selectedCrop;
+    public GameObject selectedBorder;
+    private bool plantedThisFrame = false;
+    private int plantedThisFramePos = 0;
 
     public static Inventory _INVENTORY;
 
@@ -23,6 +25,15 @@ public class Inventory : MonoBehaviour
     {
         RawToInventory();
         GenerateList();
+    }
+
+    private void Update()
+    {
+        if (plantedThisFrame)
+        {
+            ReturnToNormal();
+            plantedThisFrame = false;
+        }
     }
 
     private void RawToInventory()
@@ -66,6 +77,11 @@ public class Inventory : MonoBehaviour
 
     private void GenerateList()
     {
+        for(int x = 0; x < parent.transform.childCount; x++)
+        {
+            Destroy(parent.transform.GetChild(x).gameObject);
+        }
+
         foreach (var item in inventory)
         {
 
@@ -75,7 +91,7 @@ public class Inventory : MonoBehaviour
         } 
     }
 
-    private void ClickedOutside()
+    public void ClickedOutside()
     {
         if (selectedCrop != null)
         {
@@ -83,5 +99,71 @@ public class Inventory : MonoBehaviour
             selectedBorder.SetActive(false);
             selectedBorder = null;
         }
+    }
+
+    public void SetSelected(string crop, GameObject border)
+    {
+        if (selectedCrop != null)
+        {
+            selectedBorder.SetActive(false);
+        }
+        selectedBorder = border;
+        selectedBorder.SetActive(true);
+
+        foreach (var plant in database.plants)
+        {
+            if (plant.Name == crop)
+            {
+                selectedCrop = plant;
+                return;
+            }
+        }
+    }
+
+    public void Planted()
+    {
+        int pos = 0;
+
+        foreach(var item in inventory)
+        {
+            if (selectedCrop.Name == item.Key)
+            {
+                KeyValuePair<string, int> newValue = new KeyValuePair<string, int>(item.Key, item.Value - 1);
+                inventory.Remove(item);
+                inventory.Add(newValue);
+
+                selectedCrop = null;
+                selectedBorder.SetActive(false);
+                selectedBorder = null;
+                plantedThisFrame = true;
+                plantedThisFramePos = pos;
+                return;
+            }
+            pos++;
+        }
+    }
+
+    private void ReturnToNormal()
+    {
+        for (int i = plantedThisFramePos; i < inventory.Count - 1; i++)
+        {
+            inventory.Add(new KeyValuePair<string, int>(inventory[plantedThisFramePos].Key, inventory[plantedThisFramePos].Value));
+            inventory.Remove(inventory[plantedThisFramePos]);
+        }
+
+        GenerateList();
+    }
+
+    public bool CanPlant()
+    {
+        foreach (var item in inventory)
+        {
+            if (selectedCrop.Name == item.Key)
+            {
+                return item.Value > 0;
+            }
+        }
+        
+        return false;
     }
 }

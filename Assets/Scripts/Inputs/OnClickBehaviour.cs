@@ -10,9 +10,6 @@ public class OnClickBehaviour : MonoBehaviour
     [SerializeField] private LayerMask cropLayer;
     [SerializeField] private LayerMask buttonLayer;
 
-    [SerializeField] GraphicRaycaster m_Raycaster;
-    PointerEventData m_PointerEventData;
-    [SerializeField] EventSystem m_EventSystem;
     void Update()
     {
         if(Input.GetMouseButtonDown(0))
@@ -23,28 +20,19 @@ public class OnClickBehaviour : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, 100, cropLayer))
             {
-                hit.transform.gameObject.GetComponent<Crop>().PrintCoords();
-            }
-            
-            List<RaycastResult> results = MousePoint();
-
-            foreach (var result in results)
-            {
-                if(result.gameObject.layer == buttonLayer)
+                //Si pulsamos en una plantación y tenemos seleccionada una plantación
+                if (Inventory._INVENTORY.selectedCrop != null && Inventory._INVENTORY.CanPlant() && hit.transform.gameObject.GetComponent<Crop>().CanPlant())
                 {
-                    Debug.Log("hola");
+                    
+                    Inventory._INVENTORY.Planted();
                 }
+            } else
+            {
+                Inventory._INVENTORY.ClickedOutside();
             }
+
         }
+
     }
 
-    private List<RaycastResult> MousePoint()
-    {
-        m_PointerEventData = new PointerEventData(m_EventSystem);
-        m_PointerEventData.position = Input.mousePosition;
-        List<RaycastResult> results = new List<RaycastResult>();
-        m_Raycaster.Raycast(m_PointerEventData, results);
-
-        return results;
-    }
 }

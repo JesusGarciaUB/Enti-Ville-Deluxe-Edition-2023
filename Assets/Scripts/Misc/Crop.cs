@@ -5,9 +5,10 @@ using UnityEngine;
 public class Crop : MonoBehaviour
 {
     [SerializeField] private Vector2 coords;
-
-    public void PrintCoords()
+    private GameObject plant;
+    
+    public bool CanPlant()
     {
-        Debug.Log("X: " + coords.x + " - Y: " + coords.y);
+        return plant == null;
     }
 }

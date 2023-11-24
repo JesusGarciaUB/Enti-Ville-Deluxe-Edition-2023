@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Plant : ScriptableObject
 {
@@ -31,11 +32,21 @@ public class Plant : ScriptableObject
         return plant;
     }
 
+    public void PlantThis(Transform t)
+    {
+        GameObject instance = Instantiate(prefab);
+        PlantGrow plantGrow = instance.GetComponent<PlantGrow>();
+
+        plantGrow.PlantThis(id, plantName, growthTime, sellPrice);
+        instance.transform.position = t.position;
+    }
+
     public int Id { get { return id; } }
     public string Name { get {  return plantName; } }
     public float GrowthTime { get {  return growthTime; } }
     public decimal BuyPrice { get {  return buyPrice; } }
     public int Quantity { get { return quantity; } }
     public decimal SellPrice { get { return sellPrice; } }
+    public GameObject Prefab { get {  return prefab; } }
 
 }
