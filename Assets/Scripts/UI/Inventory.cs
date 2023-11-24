@@ -14,6 +14,8 @@ public class Inventory : MonoBehaviour
     public GameObject selectedBorder;
     private bool plantedThisFrame = false;
     private int plantedThisFramePos = 0;
+    [SerializeField] private TextMeshProUGUI moneyText;
+    private decimal money = 0;
 
     public static Inventory _INVENTORY;
 
@@ -36,6 +38,15 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public bool ChangeOnMoney(decimal val)
+    {
+        if (money + val >= 0)
+        {
+            money += val;
+            moneyText.text = money.ToString();
+        }
+        return false;
+    }
     private void RawToInventory()
     {
         List<KeyValuePair<int, int>> raw = database.GetInventory();
@@ -88,6 +99,12 @@ public class Inventory : MonoBehaviour
             GameObject toInstance = Instantiate(cell, parent.transform);
             toInstance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = item.Key;
             toInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "x" + item.Value.ToString();
+
+            if (selectedCrop != null && item.Key == selectedCrop.Name)
+            {
+                toInstance.transform.GetChild(2).gameObject.SetActive(true);
+                selectedBorder = toInstance.transform.GetChild(2).gameObject;
+            }
         } 
     }
 
@@ -119,7 +136,6 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-
     public void Planted()
     {
         int pos = 0;
@@ -132,9 +148,6 @@ public class Inventory : MonoBehaviour
                 inventory.Remove(item);
                 inventory.Add(newValue);
 
-                selectedCrop = null;
-                selectedBorder.SetActive(false);
-                selectedBorder = null;
                 plantedThisFrame = true;
                 plantedThisFramePos = pos;
                 return;
@@ -142,7 +155,25 @@ public class Inventory : MonoBehaviour
             pos++;
         }
     }
+    public void UnPlanted(string name)
+    {
+        int pos = 0;
 
+        foreach (var item in inventory)
+        {
+            if (name == item.Key)
+            {
+                KeyValuePair<string, int> newValue = new KeyValuePair<string, int>(item.Key, item.Value + 1);
+                inventory.Remove(item);
+                inventory.Add(newValue);
+
+                plantedThisFrame = true;
+                plantedThisFramePos = pos;
+                return;
+            }
+            pos++;
+        }
+    }
     private void ReturnToNormal()
     {
         for (int i = plantedThisFramePos; i < inventory.Count - 1; i++)
@@ -153,7 +184,6 @@ public class Inventory : MonoBehaviour
 
         GenerateList();
     }
-
     public bool CanPlant()
     {
         foreach (var item in inventory)

@@ -8,7 +8,6 @@ public class PlantGrow : MonoBehaviour
     private string plantName;
     private float growthTime;
     private decimal sellPrice;
-    private Vector3 growthTimeFactor;
 
     public bool grown = false;
 
@@ -33,11 +32,11 @@ public class PlantGrow : MonoBehaviour
         plantName = _plantName;
         growthTime = _growthTime;
         sellPrice = _sellPrice;
-
-        Debug.Log(growthTimeFactor.x);
     }
     public void Recolect()
     {
+        Inventory._INVENTORY.ChangeOnMoney(sellPrice);
+        Inventory._INVENTORY.UnPlanted(plantName);
         Destroy(gameObject);
     }
 }
