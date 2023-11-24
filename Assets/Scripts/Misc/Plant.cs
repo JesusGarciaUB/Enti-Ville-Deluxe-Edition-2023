@@ -32,13 +32,14 @@ public class Plant : ScriptableObject
         return plant;
     }
 
-    public void PlantThis(Transform t)
+    public void PlantThis(GameObject crop)
     {
         GameObject instance = Instantiate(prefab);
         PlantGrow plantGrow = instance.GetComponent<PlantGrow>();
 
         plantGrow.PlantThis(id, plantName, growthTime, sellPrice);
-        instance.transform.position = t.position;
+        instance.transform.position = crop.transform.position;
+        crop.GetComponent<Crop>().SetPlant(instance);
     }
 
     public int Id { get { return id; } }

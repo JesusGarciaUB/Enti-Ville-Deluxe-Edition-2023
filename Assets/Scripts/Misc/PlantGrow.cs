@@ -10,17 +10,21 @@ public class PlantGrow : MonoBehaviour
     private decimal sellPrice;
     private Vector3 growthTimeFactor;
 
+    public bool grown = false;
+
     private void Awake()
     {
-        transform.localScale = growthTimeFactor;
+        transform.localScale = Vector3.zero;
     }
 
     private void Update()
     {
-        if (growthTime > 0)
+        if (transform.localScale.x < 1)
         {
-            transform.localScale += growthTimeFactor;
-            growthTime -= Time.deltaTime;
+            transform.localScale += new Vector3(1 / growthTime * Time.deltaTime, 1 / growthTime * Time.deltaTime, 1 / growthTime * Time.deltaTime);
+        } else
+        {
+            grown = true;
         }
     }
     public void PlantThis(int _id, string _plantName, float _growthTime, decimal _sellPrice)
@@ -30,6 +34,10 @@ public class PlantGrow : MonoBehaviour
         growthTime = _growthTime;
         sellPrice = _sellPrice;
 
-        growthTimeFactor = new Vector3(growthTime * Time.deltaTime, growthTime * Time.deltaTime, growthTime * Time.deltaTime);
+        Debug.Log(growthTimeFactor.x);
+    }
+    public void Recolect()
+    {
+        Destroy(gameObject);
     }
 }

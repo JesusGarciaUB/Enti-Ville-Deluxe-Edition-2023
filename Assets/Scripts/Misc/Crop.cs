@@ -11,4 +11,10 @@ public class Crop : MonoBehaviour
     {
         return plant == null;
     }
+
+    public void SetPlant(GameObject _plant)
+    {
+        plant = _plant;
+    }
+    public GameObject GetPlant() { return plant; }
 }

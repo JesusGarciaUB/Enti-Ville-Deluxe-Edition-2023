@@ -54,10 +54,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6aa0bcf1aa7ec774cb88a872c4b9c014, type: 3}
       propertyPath: m_Name
-      value: carrot Variant
+      value: Zanahoria
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6aa0bcf1aa7ec774cb88a872c4b9c014, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6aa0bcf1aa7ec774cb88a872c4b9c014, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4839179080762610964}
   m_SourcePrefab: {fileID: 100100000, guid: 6aa0bcf1aa7ec774cb88a872c4b9c014, type: 3}
+--- !u!1 &187069356168345977 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6aa0bcf1aa7ec774cb88a872c4b9c014, type: 3}
+  m_PrefabInstance: {fileID: 1034125077853717544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-4839179080762610964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187069356168345977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69c04678395e5bb4fbf94c1a329e1004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

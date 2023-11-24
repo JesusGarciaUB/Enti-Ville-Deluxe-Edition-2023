@@ -54,10 +54,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bd55a482cd5c5c24b8e5063974161bae, type: 3}
       propertyPath: m_Name
-      value: avocado (1) Variant
+      value: Avocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd55a482cd5c5c24b8e5063974161bae, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bd55a482cd5c5c24b8e5063974161bae, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5227718061249955280}
   m_SourcePrefab: {fileID: 100100000, guid: bd55a482cd5c5c24b8e5063974161bae, type: 3}
+--- !u!1 &3182873395514054105 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bd55a482cd5c5c24b8e5063974161bae, type: 3}
+  m_PrefabInstance: {fileID: 2371918902384208008}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5227718061249955280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3182873395514054105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69c04678395e5bb4fbf94c1a329e1004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

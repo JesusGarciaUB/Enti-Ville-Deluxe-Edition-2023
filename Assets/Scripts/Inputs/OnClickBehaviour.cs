@@ -23,8 +23,14 @@ public class OnClickBehaviour : MonoBehaviour
                 //Si pulsamos en una plantación y tenemos seleccionada una plantación
                 if (Inventory._INVENTORY.selectedCrop != null && Inventory._INVENTORY.CanPlant() && hit.transform.gameObject.GetComponent<Crop>().CanPlant())
                 {
-                    
+                    Inventory._INVENTORY.selectedCrop.PlantThis(hit.transform.gameObject);
                     Inventory._INVENTORY.Planted();
+                } else if (!hit.transform.gameObject.GetComponent<Crop>().CanPlant())
+                {
+                    if (hit.transform.gameObject.GetComponent<Crop>().GetPlant().GetComponent<PlantGrow>().grown)
+                    {
+                        hit.transform.gameObject.GetComponent<Crop>().GetPlant().GetComponent<PlantGrow>().Recolect();
+                    }
                 }
             } else
             {
