@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class Inventory : MonoBehaviour
 {
@@ -58,7 +59,7 @@ public class Inventory : MonoBehaviour
             bool toadd = false;
             int pos = 0;
 
-            foreach (var plant in database.plants)
+            foreach (var plant in database.getPlants())
             {
                 if (plant.Id == ids.Key)
                 {
@@ -85,7 +86,6 @@ public class Inventory : MonoBehaviour
             inventory.Add(new KeyValuePair<string, int>(name, quantity));
         }
     }
-
     private void GenerateList()
     {
         for(int x = 0; x < parent.transform.childCount; x++)
@@ -107,7 +107,6 @@ public class Inventory : MonoBehaviour
             }
         } 
     }
-
     public void ClickedOutside()
     {
         if (selectedCrop != null)
@@ -117,7 +116,6 @@ public class Inventory : MonoBehaviour
             selectedBorder = null;
         }
     }
-
     public void SetSelected(string crop, GameObject border)
     {
         if (selectedCrop != null)
@@ -127,7 +125,7 @@ public class Inventory : MonoBehaviour
         selectedBorder = border;
         selectedBorder.SetActive(true);
 
-        foreach (var plant in database.plants)
+        foreach (var plant in database.getPlants())
         {
             if (plant.Name == crop)
             {
@@ -195,5 +193,53 @@ public class Inventory : MonoBehaviour
         }
         
         return false;
+    }
+    public decimal GetMoney()
+    {
+        return money;
+    }
+    public void WasteMoney(decimal moneyWasted)
+    {
+        this.money -= moneyWasted;
+        moneyText.text = money.ToString();
+    }
+    public void AddToInventory(string plantName)
+    {
+        int quantity = 0;
+        bool toadd = false;
+        int pos = 0;
+
+        foreach (var plant in database.getPlants())
+        {
+            if (plant.Name == plantName)
+            {
+                quantity = plant.Quantity;
+            }
+        }
+
+        foreach (var item in inventory)
+        {
+            if (item.Key == plantName)
+            {
+                toadd = true;
+            }
+            if (!toadd) pos++;
+        }
+
+        if (toadd)
+        {
+            quantity += inventory[pos].Value;
+            inventory.Remove(inventory[pos]);
+        }
+
+        inventory.Add(new KeyValuePair<string, int>(plantName, quantity));
+
+        for (int i = pos; i < inventory.Count - 1; i++)
+        {
+            inventory.Add(new KeyValuePair<string, int>(inventory[pos].Key, inventory[pos].Value));
+            inventory.Remove(inventory[pos]);
+        }
+
+        GenerateList();
     }
 }

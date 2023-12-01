@@ -16,10 +16,10 @@ public class Database : MonoBehaviour
     {
         connection = new SqliteConnection(string.Format("URI=file:{0}", db_name));
         connection.Open();
-        getPlants();
+        getPlantsDB();
     }
 
-    public List<Plant> getPlants()
+    private List<Plant> getPlantsDB()
     {
         if (plants.Count == 0)
         {
@@ -40,19 +40,9 @@ public class Database : MonoBehaviour
         return plants;
     }
 
-    private void PrintPlants()
+    public List<Plant> getPlants()
     {
-        foreach (var plant in plants)
-        {
-            Debug.Log(
-                "Id: " + plant.Id + 
-                " - Name: " + plant.Name + 
-                " - Growth Time: " + plant.GrowthTime + 
-                " - Buy Price: " + plant.BuyPrice + 
-                " - Sell Price: " + plant.SellPrice + 
-                " - Quantity: " + plant.Quantity
-                );
-        }
+        return plants;
     }
 
     public List<KeyValuePair<int, int>> GetInventory()
