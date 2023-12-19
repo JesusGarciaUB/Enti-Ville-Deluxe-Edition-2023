@@ -45,6 +45,7 @@ public class Inventory : MonoBehaviour
         {
             money += val;
             moneyText.text = money.ToString();
+            return true;
         }
         return false;
     }
