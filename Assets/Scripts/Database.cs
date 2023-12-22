@@ -195,4 +195,14 @@ public class Database : MonoBehaviour
         cmnd_read.CommandText = query;
         reader = cmnd_read.ExecuteReader();
     }
+
+    public void BuySomething(int id)
+    {
+        IDbCommand cmnd_read = connection.CreateCommand();
+        IDataReader reader;
+        string query = "INSERT INTO plants_users (id_plant, id_user) VALUES ("+id+", 1)";
+        cmnd_read.CommandText = query;
+        reader = cmnd_read.ExecuteReader();
+        SaveCurrentGame();
+    }
 }

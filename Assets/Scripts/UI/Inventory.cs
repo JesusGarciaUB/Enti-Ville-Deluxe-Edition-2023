@@ -217,6 +217,7 @@ public class Inventory : MonoBehaviour
             if (plant.Name == plantName)
             {
                 quantity = plant.Quantity;
+                Database._DATABASE.BuySomething(plant.Id);
             }
         }
 
