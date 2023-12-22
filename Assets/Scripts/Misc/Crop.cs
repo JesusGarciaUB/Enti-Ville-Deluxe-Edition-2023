@@ -17,4 +17,5 @@ public class Crop : MonoBehaviour
         plant = _plant;
     }
     public GameObject GetPlant() { return plant; }
+    public Vector2 GetCoords() { return coords; }
 }

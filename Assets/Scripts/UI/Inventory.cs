@@ -8,7 +8,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     private List<KeyValuePair<string, int>> inventory = new List<KeyValuePair<string, int>>();
-    [SerializeField] private Database database;
+    private Database database;
     [SerializeField] private GameObject cell;
     [SerializeField] private GameObject parent;
     public Plant selectedCrop;
@@ -23,9 +23,11 @@ public class Inventory : MonoBehaviour
     private void Awake()
     {
         if (_INVENTORY == null) _INVENTORY = this;
+        CellsBucket._CELLS.inventoryLoaded = true;
     }
     private void Start()
     {
+        database = Database._DATABASE;
         RawToInventory();
         GenerateList();
     }
@@ -173,7 +175,7 @@ public class Inventory : MonoBehaviour
             pos++;
         }
     }
-    private void ReturnToNormal()
+    public void ReturnToNormal()
     {
         for (int i = plantedThisFramePos; i < inventory.Count - 1; i++)
         {
@@ -243,4 +245,5 @@ public class Inventory : MonoBehaviour
 
         GenerateList();
     }
+    public void PlantedFromLoad() { plantedThisFrame = false; }
 }

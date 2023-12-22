@@ -8,10 +8,12 @@ public class Shop : MonoBehaviour
 {
     [SerializeField] private GameObject cell;
     [SerializeField] private GameObject parent;
-    [SerializeField] private Database database;
+    private Database database;
 
     private void Start()
     {
+        database = Database._DATABASE;
+        CellsBucket._CELLS.shopLoaded = true;
         GenerateShop();
     }
 

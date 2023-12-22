@@ -39,4 +39,6 @@ public class PlantGrow : MonoBehaviour
         Inventory._INVENTORY.UnPlanted(plantName);
         Destroy(gameObject);
     }
+
+    public int GetId() { return id; }
 }
